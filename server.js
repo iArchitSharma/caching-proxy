@@ -11,7 +11,8 @@ class CachingProxyServer {
     }
 
     async handleRequest(req, res){
-        const url = `${this.origin}${this.url}`;
+        const url = `${this.origin.replace(/\/+$/, '')}/${req.originalUrl.replace(/^\/+/, '')}`;
+        console.log(`Forwarding request to: ${url}`);  // Log the forwarded URL
         const cachedResponse = this.cache.get(url);
 
         if(cachedResponse){
@@ -21,13 +22,15 @@ class CachingProxyServer {
 
         try {
             const response = await axios.get(url);
-            this.cache.set(url, response);
+            const responseData = response.data; // Simplified data
+            this.cache.set(url, responseData);
             res.setHeader('X-Cache', 'MISS');
-            res.status(response.status).send(response.data);
-        }catch(error){
+            res.status(response.status).send(responseData);
+          } catch (error) {
+            console.error(`Request failed with status code: ${error.response ? error.response.status : 500}`);
             res.status(error.response ? error.response.status : 500).send(error.message);
+          }
         }
-    }
 
     start(){
         this.app.get('*', this.handleRequest.bind(this));

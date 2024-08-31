@@ -29,7 +29,7 @@ Before you begin, ensure you have met the following requirements:
 To start the caching proxy server, run the following command:
 
 ```bash
-./index.js start --port <number> --origin <url>
+node ./index.js start --port <number> --origin <url>
 ```
 
 - `--port`: The port on which the caching proxy server will run.
@@ -38,7 +38,7 @@ To start the caching proxy server, run the following command:
 Example:
 
 ```bash
-./index.js start --port 3000 --origin http://dummyjson.com
+node ./index.js start --port 3000 --origin http://dummyjson.com
 ```
 
 In this example, the server will start on port `3000` and forward requests to `http://dummyjson.com`.
@@ -48,7 +48,7 @@ In this example, the server will start on port `3000` and forward requests to `h
 You can clear the cache by running the following command:
 
 ```bash
-./index.js clear-cache
+node ./index.js clear-cache
 ```
 
 ## CC

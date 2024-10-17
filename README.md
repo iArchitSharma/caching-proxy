@@ -17,7 +17,7 @@ Before you begin, ensure you have met the following requirements:
    cd caching-proxy
    ```
 
-2. Install the dependencies:
+2. Install the node dependencies:
    ```bash
    npm install
    ```
